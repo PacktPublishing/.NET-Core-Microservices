@@ -26,15 +26,15 @@ By the end of the course, your services will be built using ASP.NET Core framewo
 ## Instructions and Navigation
 ### Assumed Knowledge
 To fully benefit from the coverage included in this course, you will need:<br/>
-● Good knowledge of the C# programming language
-● Basic understanding of .NET Core platform
-● Basic understanding of HTTP API and distributed systems
+<LI>Good knowledge of the C# programming language
+<LI>Basic understanding of .NET Core platform
+<LI>Basic understanding of HTTP API and distributed systems
 ### Technical Requirements
 This course has the following software requirements:<br/>
-● An IDE or editor likeVisual Studio, Visual Studio Code, Atom, Sublime Text etc.
-● OmniSharp (if not a full Visual Studio is being used)
-● .NET Core 2.0 or higher
-● Docker
+<LI>An IDE or editor likeVisual Studio, Visual Studio Code, Atom, Sublime Text etc.
+<LI>OmniSharp (if not a full Visual Studio is being used)
+<LI>.NET Core 2.0 or higher
+<LI>Docker
 
 
 ## Related Products
