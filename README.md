@@ -12,16 +12,13 @@ By the end of the course, your services will be built using ASP.NET Core framewo
 <H2>What You Will Learn</H2>
 <DIV class=book-info-will-learn-text>
 <UL>
-<LI>Explore the Docker commands to use for your application 
-<LI>Build Container images with the docker command line 
-<LI>Explore the Dockerfile and docker build 
-<LI>Tag and run your first Docker image 
-<LI>Customize the dockerfile in your .net application 
-<LI>Add your database and link the containers 
-<LI>Write a build script to make your .NET core application data-driven and robust 
-<LI>Debug images into a container using Visual Studio 
-<LI>Use the kops tool to create a Kubernetes cluster in AWS 
-<LI>Deploy an image with kubectl in your application </LI></UL></DIV>
+<LI>Use NET Core platform to build a microservices architecture
+<LI>Send messages through distributed system with the RabbitMQ service bus
+<LI>Store data in the NoSQL database, MongoDB
+<LI>Store user identities and authenticating requests using JWT
+<LI>Deploy the application to the cloud with Docker and Docker Compose
+<LI>Explore commands, events, handlers and other design patterns
+<LI>Delve into unit- and integration-testing the distributed system </LI></UL></DIV>
 
 ## Instructions and Navigation
 ### Assumed Knowledge
