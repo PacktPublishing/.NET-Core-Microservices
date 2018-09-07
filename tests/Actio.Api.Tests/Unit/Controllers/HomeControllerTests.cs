@@ -16,7 +16,7 @@ namespace Actio.Api.Tests.Unit.Controllers
             
             var contentResult = result as ContentResult;
             contentResult.Should().NotBeNull();
-            contentResult.Content.ShouldBeEquivalentTo("Hello from Actio API!");
+            contentResult.Content.Should().BeEquivalentTo("Hello from Actio API!");
         }
     }
 }
