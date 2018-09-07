@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Actio.Services.Identity
 {
@@ -41,17 +42,35 @@ namespace Actio.Services.Identity
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IEncrypter, Encrypter>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Actio API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
+            else
+            {
+                //app.UseHsts();
+            }
+            //app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
+            //serviceProvider.GetRequiredService<IDatabaseInitializer>().InitializeAsync();
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                serviceScope.ServiceProvider.GetService<IDatabaseInitializer>().InitializeAsync();
+            }
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Conference Planner API v1")
+            );
         }
     }
 }

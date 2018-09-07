@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Actio.Api
 {
@@ -35,18 +36,49 @@ namespace Actio.Api
             services.AddMongoDB(Configuration);
             services.AddScoped<IEventHandler<ActivityCreated>, ActivityCreatedHandler>();
             services.AddScoped<IActivityRepository, ActivityRepository>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition(
+                    "Bearer",
+                    new ApiKeyScheme()
+                    {
+                        In = "header",
+                        Description = "Please insert JWT with Bearer into field",
+                        Name = "Authorization",
+                        Type = "apiKey"
+                    });
+
+                c.DescribeAllEnumsAsStrings();
+
+                c.SwaggerDoc("v1", new Info { Title = "Actio API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
+            else
+            {
+                //app.UseHsts();
+            }
+
+            //app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
+            //serviceProvider.GetRequiredService<IDatabaseInitializer>().InitializeAsync();
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                serviceScope.ServiceProvider.GetService<IDatabaseInitializer>().InitializeAsync();
+            }
             app.UseAuthentication();
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Conference Planner API v1")
+            );
         }
     }
 }

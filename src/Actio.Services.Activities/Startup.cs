@@ -42,13 +42,18 @@ namespace Actio.Services.Activities
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
+            //app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
+            //serviceProvider.GetRequiredService<IDatabaseInitializer>().InitializeAsync();
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                serviceScope.ServiceProvider.GetService<IDatabaseInitializer>().InitializeAsync();
+            }
             app.UseMvc();
         }
     }

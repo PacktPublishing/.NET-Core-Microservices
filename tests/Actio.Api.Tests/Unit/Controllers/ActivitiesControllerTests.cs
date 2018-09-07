@@ -44,7 +44,7 @@ namespace Actio.Api.Tests.Unit.Controllers
             
             var contentResult = result as AcceptedResult;
             contentResult.Should().NotBeNull();
-            contentResult.Location.ShouldBeEquivalentTo($"activities/{command.Id}");
+            contentResult.Location.Should().BeEquivalentTo($"activities/{command.Id}");
         }        
     }
 }
