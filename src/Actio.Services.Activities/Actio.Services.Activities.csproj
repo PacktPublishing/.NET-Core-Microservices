@@ -17,6 +17,7 @@
     <PackageReference Include="RawRabbit.DependencyInjection.ServiceCollection" Version="2.0.0-beta8" />
     <PackageReference Include="RawRabbit.Operations.Publish" Version="2.0.0-beta8" />
     <PackageReference Include="RawRabbit.Operations.Subscribe" Version="2.0.0-beta8" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />

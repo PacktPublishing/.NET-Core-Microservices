@@ -48,8 +48,12 @@ namespace Actio.Services.Activities
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
+            //app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
             //serviceProvider.GetRequiredService<IDatabaseInitializer>().InitializeAsync();
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                serviceScope.ServiceProvider.GetService<IDatabaseInitializer>().InitializeAsync();
+            }
             app.UseMvc();
         }
     }
